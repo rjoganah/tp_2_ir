@@ -125,17 +125,20 @@ public class InformationRetrieval {
     String texte;
     for(int i=1;i<docs.length;i++)
     {
+    	
         //System.out.println();
-        final Pattern pattern = Pattern.compile("\\.DocContent[\\n].+");
+        final Pattern pattern = Pattern.compile("\\.DocContent\\s+.*");
         final Matcher matcher = pattern.matcher(docs[i]);
         if(matcher.find())
         {
+        	
             texte = matcher.group(0);
-            final Pattern patternTitre = Pattern.compile("\\.DocTitle[\\n].+");
+
+            final Pattern patternTitre = Pattern.compile("\\.DocTitle\\s+.+");
             final Matcher matcherTitre = patternTitre.matcher(docs[i]);
             if(matcherTitre.find())
             {
-                final Pattern patternNumero = Pattern.compile("(\\.DocKey[\\n])(.+)");
+                final Pattern patternNumero = Pattern.compile("(\\.DocKey\\s+)(.+)");
                 final Matcher matcherNumero = patternNumero.matcher(docs[i]);
                 if(matcherNumero.find())
                 {
@@ -146,6 +149,10 @@ public class InformationRetrieval {
             
             }
             
+        }
+        else
+        {
+        	System.out.println("PATTERN RATE");
         }
             
         
@@ -164,7 +171,7 @@ public class InformationRetrieval {
     while(matcher.find())
     {
         QueryIR query = new QueryIR(matcher.group(2),matcher.group(1));
-       
+        System.out.println(matcher.group(2));
         listQueries.add(query);
         k++;
         
